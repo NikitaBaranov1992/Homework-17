@@ -8,13 +8,27 @@ let baseUrl = "https://santa-secret.ru/";
 //let baseUrl = "https://santa-secret.ru/api/box";
 
 describe("santa API", () => {
-  it.only("Add box", () => {
+  beforeEach(() => {
+    cy.request({
+      method: "POST",
+      headers: {},
+      url: baseUrl + "login",
+      body: {
+        email: "4932843+1@gmail.com",
+        password: "GoodPassword10",
+      },
+    }).then((response) => {
+      expect(response.status).to.eq(200);
+    });
+  });
+
+  it("Add box", () => {
     cy.request({
       method: "POST",
       headers: {
         Cookie: SantaCookie,
       },
-      url: baseUrl + api / box,
+      url: baseUrl + "api/box",
       body: {
         email: null,
         name: newName,
@@ -44,7 +58,7 @@ describe("santa API", () => {
       headers: {
         Cookie: SantaCookie,
       },
-      url: baseUrl + api / box + newKey,
+      url: baseUrl + "api/box/" + newKey,
       body: {
         name: newNameChange,
         picture: "cookie_star",
